@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Multiplayer - Salas</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header__inner">
+            <div class="brand">
+                <span class="brand__name">Bingo Multiplayer</span>
+            </div>
+            <nav class="site-nav" aria-label="Navegação">
+                <a href="index.html" class="site-nav__link">Início</a>
+                <a href="salas.html" class="site-nav__link active">Salas</a>
+                <a href="index.html?action=createRoom" class="site-nav__link">Criar Sala</a>
+                <a href="#" class="site-nav__link" id="nav-login-btn" style="display: none;">Login</a>
+                <a href="#" class="site-nav__link" id="nav-register-btn" style="display: none;">Registrar</a>
+                <a href="#" class="site-nav__link" id="nav-logout-btn">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="rooms-screen" class="screen active">
+        <div class="container">
+            <h1>Salas Disponíveis</h1>
+            <div class="card card--glass">
+                <h2>Filtrar Salas</h2>
+                <div class="form-group">
+                    <label for="filter-room-name">Nome da Sala:</label>
+                    <input type="text" id="filter-room-name" placeholder="Buscar por nome">
+                </div>
+                <div class="form-group">
+                    <label for="filter-deck">Deck:</label>
+                    <select id="filter-deck">
+                        <option value="">Todos</option>
+                        <option value="nilton">Nilton</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filter-max-players">Máximo de Jogadores:</label>
+                    <input type="number" id="filter-max-players" min="0" placeholder="Qualquer">
+                </div>
+                <div class="form-group">
+                    <label for="filter-public-private">Tipo:</label>
+                    <select id="filter-public-private">
+                        <option value="">Todas</option>
+                        <option value="public">Públicas</option>
+                        <option value="private">Privadas</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button id="apply-filters-btn" class="btn btn-primary">Aplicar Filtros</button>
+                    <button id="clear-filters-btn" class="btn btn-secondary">Limpar Filtros</button>
+                </div>
+            </div>
+
+            <div class="card card--glass mt-4">
+                <h2>Lista de Salas</h2>
+                <div id="room-list">
+                    <!-- Salas serão carregadas aqui -->
+                    <p class="muted">Nenhuma sala disponível no momento. Que tal criar uma?</p>
+                </div>
+                <div class="button-group mt-4">
+                    <button id="go-to-create-room-btn" class="btn btn-primary">Criar Nova Sala</button>
+                </div>
+            </div>
+
+            <div class="card card--glass mt-4">
+                <h2>Entrar em Sala por ID/Nome</h2>
+                <div class="form-group">
+                    <label for="join-room-id-input">ID ou Nome da Sala:</label>
+                    <input type="text" id="join-room-id-input" placeholder="Digite o ID ou nome da sala">
+                </div>
+                <div class="form-group">
+                    <label for="join-room-password-input">Senha (se necessário):</label>
+                    <input type="password" id="join-room-password-input" placeholder="Digite a senha">
+                </div>
+                <div class="button-group">
+                    <button id="confirm-join-room-btn" class="btn btn-primary">Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Notificação -->
+    <div id="notification-modal" class="modal">
+        <div class="modal-content">
+            <p id="notification-message"></p>
+            <button id="close-notification-btn" class="btn btn-primary">OK</button>
+        </div>
+    </div>
+
+    <!-- Toast de Mensagens -->
+    <div id="toast" class="toast"></div>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <span class="muted">Feito com ❤️ para amigos e família.</span>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <!-- Scripts do Projeto -->
+    <script src="scripts/firebase-init.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/rooms.js"></script>
+</body>
+</html>
+

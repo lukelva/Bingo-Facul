@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Bingo - Sala</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header__inner">
+            <div class="brand">
+                <span class="brand__name">Bingo Multiplayer</span>
+            </div>
+            <nav class="site-nav" aria-label="Navegação">
+                <a href="index.html" class="site-nav__link">Início</a>
+                <a href="salas.html" class="site-nav__link">Salas</a>
+                <a href="index.html?action=createRoom" class="site-nav__link">Criar Sala</a>
+                <a href="#" class="site-nav__link" id="nav-logout-btn">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tela de Jogo -->
+    <div id="game-screen" class="screen active">
+        <div class="game-container">
+            <!-- Cabeçalho -->
+            <header class="game-header card--glass">
+                <div class="header-info">
+                    <h2 id="room-title">Sala: <span id="current-room-name"></span></h2>
+                    <p id="players-count">Jogadores: <span id="current-players">0</span> / <span id="max-players-count">0</span></p>
+                </div>
+                <div class="header-actions">
+                    <button id="copy-link-btn" class="btn btn-small">Copiar link</button>
+                    <button id="leave-room-btn" class="btn btn-small btn-danger">Sair</button>
+                </div>
+            </header>
+
+            <!-- Área Principal -->
+            <div class="game-main">
+                <!-- Cartela do Jogador -->
+                <div class="card-area card--glass">
+                    <h3>Sua Cartela</h3>
+                    <div id="bingo-card" class="bingo-card">
+                        <!-- Quadrados serão gerados dinamicamente -->
+                    </div>
+                    <button id="bingo-btn" class="btn btn-bingo" style="display: none;">BINGO</button>
+                </div>
+
+                <!-- Painel Lateral -->
+                <aside class="sidebar">
+                    <!-- Lista de Jogadores -->
+                    <div class="players-panel card--glass">
+                        <h3>Jogadores</h3>
+                        <ul id="players-list">
+                            <!-- Jogadores serão listados aqui -->
+                        </ul>
+                    </div>
+
+                    <!-- Chat em Tempo Real -->
+                    <div class="chat-panel card--glass">
+                        <h3>Chat da Sala</h3>
+                        <div id="chat-messages" class="chat-messages">
+                            <!-- Mensagens do chat serão listadas aqui -->
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="chat-message-input" placeholder="Digite sua mensagem...">
+                            <button id="send-chat-btn" class="btn btn-primary btn-small">Enviar</button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Notificação -->
+    <div id="notification-modal" class="modal"></div>
+    <!-- Toast de Mensagens -->
+    <div id="toast" class="toast"></div>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <span class="muted">Feito com ❤️ para amigos e família.</span>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Scripts do Projeto -->
+    <script src="scripts/firebase-init.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/chat.js"></script>
+</body>
+</html>

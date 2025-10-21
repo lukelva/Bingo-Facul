@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Multiplayer</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header__inner">
+            <div class="brand">
+                <span class="brand__name">Bingo Multiplayer</span>
+            </div>
+            <nav class="site-nav" aria-label="Navegação">
+                <a href="index.html" class="site-nav__link active" data-target="landing">Início</a>
+                <a href="salas.html" class="site-nav__link">Salas</a>
+                <a href="#" class="site-nav__link" data-target="createRoom">Criar Sala</a>
+                <a href="#" class="site-nav__link" data-target="login" id="nav-login-btn">Login</a>
+                <a href="#" class="site-nav__link" data-target="register" id="nav-register-btn">Registrar</a>
+                <a href="#" class="site-nav__link" id="nav-logout-btn" style="display: none;">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tela de Landing -->
+    <div id="landing-screen" class="screen active">
+        <div class="container">
+            <h1>Bingo Multiplayer</h1>
+            <div class="card card--glass">
+                <h2>Bem-vindo!</h2>
+                <p class="lead">Jogue com amigos em salas privadas e divirta-se marcando sua cartela.</p>
+                <div class="form-group">
+                    <label for="username">Seu nome:</label>
+                    <input type="text" id="username" placeholder="Faça login para jogar" maxlength="20" disabled>
+                </div>
+                <div class="button-group">
+                    <button id="create-room-btn" class="btn btn-primary">Criar Sala</button>
+                    <a href="salas.html" id="join-room-link" class="btn btn-secondary">Ver Salas</a>
+                </div>
+                <small class="muted">Você poderá compartilhar o link da sala com um clique.</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Login -->
+    <div id="login-screen" class="screen">
+        <div class="container">
+            <h1>Login</h1>
+            <div class="card card--glass">
+                <div class="form-group">
+                    <label for="login-username">Nome de Usuário:</label>
+                    <input type="text" id="login-username" placeholder="Seu nome de usuário">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Senha:</label>
+                    <input type="password" id="login-password" placeholder="Sua senha">
+                </div>
+                <div class="button-group">
+                    <button id="confirm-login-btn" class="btn btn-primary">Entrar</button>
+                    <button id="cancel-login-btn" class="btn btn-secondary">Cancelar</button>
+                </div>
+                <p class="mt-3">Não tem uma conta? <a href="#" id="go-to-register">Registre-se aqui</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Registro -->
+    <div id="register-screen" class="screen">
+        <div class="container">
+            <h1>Registrar</h1>
+            <div class="card card--glass">
+                <div class="form-group">
+                    <label for="register-username">Nome de Usuário:</label>
+                    <input type="text" id="register-username" placeholder="Escolha um nome de usuário">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha:</label>
+                    <input type="password" id="register-password" placeholder="Escolha uma senha">
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmar Senha:</label>
+                    <input type="password" id="register-confirm-password" placeholder="Confirme sua senha">
+                </div>
+                <div class="button-group">
+                    <button id="confirm-register-btn" class="btn btn-primary">Registrar</button>
+                    <button id="cancel-register-btn" class="btn btn-secondary">Cancelar</button>
+                </div>
+                <p class="mt-3">Já tem uma conta? <a href="#" id="go-to-login">Faça login aqui</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Criar Sala -->
+    <div id="create-room-screen" class="screen">
+        <div class="container">
+            <h1>Criar Nova Sala</h1>
+            <div class="card card--glass">
+                <div class="form-group">
+                    <label for="room-name">Nome da Sala:</label>
+                    <input type="text" id="room-name" placeholder="Digite o nome da sala" maxlength="30">
+                </div>
+                <div class="form-group">
+                    <label for="room-password">Senha (opcional):</label>
+                    <input type="password" id="room-password" placeholder="Deixe vazio para sala pública" maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label for="max-players">Máximo de Jogadores:</label>
+                    <input type="number" id="max-players" min="2" max="20" value="4">
+                </div>
+                <div class="form-group">
+                    <label for="deck-select">Deck:</label>
+                    <select id="deck-select">
+                        <option value="nilton">Nilton</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button id="confirm-create-btn" class="btn btn-primary">Criar e Entrar</button>
+                    <button id="cancel-create-btn" class="btn btn-secondary">Cancelar</button>
+                </div>
+                <small class="muted">Dica: use senha para evitar intrusos.</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Notificação -->
+    <div id="notification-modal" class="modal"></div>
+    <!-- Toast de Mensagens -->
+    <div id="toast" class="toast"></div>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <span class="muted">Feito com ❤️ para amigos e família.</span>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Scripts do Projeto -->
+    <script src="scripts/firebase-init.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script>
+    // Função auxiliar para mostrar telas
+    function showScreen(screenName) {
+        const screens = {
+            landing: document.getElementById("landing-screen"),
+            login: document.getElementById("login-screen"),
+            register: document.getElementById("register-screen"),
+            createRoom: document.getElementById("create-room-screen"),
+        };
+        Object.values(screens).forEach(screen => screen && screen.classList.remove("active"));
+        if (screens[screenName]) {
+            screens[screenName].classList.add("active");
+        }
+        updateNavUI();
+    }
+
+
+    // Função para atualizar a UI da navegação (botões de login/logout)
+    function updateNavUI() {
+        const navLoginBtn = document.getElementById("nav-login-btn");
+        const navRegisterBtn = document.getElementById("nav-register-btn");
+        const navLogoutBtn = document.getElementById("nav-logout-btn");
+        const usernameInput = document.getElementById("username");
+
+        if (loggedInUser) {
+            if (navLoginBtn) navLoginBtn.style.display = "none";
+            if (navRegisterBtn) navRegisterBtn.style.display = "none";
+            if (navLogoutBtn) navLogoutBtn.style.display = "block";
+            if (usernameInput) {
+                usernameInput.value = loggedInUser;
+                usernameInput.disabled = true;
+            }
+        } else {
+            if (navLoginBtn) navLoginBtn.style.display = "block";
+            if (navRegisterBtn) navRegisterBtn.style.display = "block";
+            if (navLogoutBtn) navLogoutBtn.style.display = "none";
+            if (usernameInput) {
+                usernameInput.value = "";
+                usernameInput.placeholder = "Faça login para jogar";
+                usernameInput.disabled = true;
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        checkLoginStatus(); // from auth.js
+
+        // Event listeners para navegação principal
+        document.querySelectorAll(".site-nav__link").forEach(link => {
+            link.addEventListener("click", (e) => {
+                // Permite navegação direta para hrefs como salas.html
+                if (link.href && !link.getAttribute("data-target")) {
+                    return;
+                }
+                e.preventDefault();
+                const target = link.getAttribute("data-target");
+                if (!target) return;
+                showScreen(target);
+
+                if (link.id === "nav-logout-btn") {
+                    logoutUser(); // from auth.js
+                    updateNavUI();
+                    showScreen("landing");
+                }
+            });
+        });
+
+        // Navegação entre login e registro
+        document.getElementById("go-to-register").addEventListener("click", (e) => {
+            e.preventDefault();
+            showScreen("register");
+        });
+        document.getElementById("go-to-login").addEventListener("click", (e) => {
+            e.preventDefault();
+            showScreen("login");
+        });
+
+        // Lógica para o botão "Criar Sala" na landing page
+        document.getElementById("create-room-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+            if (loggedInUser) {
+                showScreen("createRoom");
+            } else {
+                showToast("Faça login para criar uma sala.", "error");
+                showScreen("login");
+            }
+        });
+
+        // Lógica para login/registro
+        document.getElementById("confirm-login-btn").addEventListener("click", async () => {
+            const success = await loginUser(document.getElementById("login-username").value, document.getElementById("login-password").value);
+            if (success) {
+                updateNavUI();
+                showScreen("landing");
+            }
+        });
+        document.getElementById("cancel-login-btn").addEventListener("click", () => showScreen("landing"));
+
+        document.getElementById("confirm-register-btn").addEventListener("click", async () => {
+            const password = document.getElementById("register-password").value;
+            const confirmPassword = document.getElementById("register-confirm-password").value;
+            if (password !== confirmPassword) {
+                return showToast("As senhas não coincidem.", "error");
+            }
+            const success = await registerUser(document.getElementById("register-username").value, password);
+            if (success) {
+                showToast("Registro bem-sucedido! Faça o login.", "success");
+                showScreen("login");
+            }
+        });
+        document.getElementById("cancel-register-btn").addEventListener("click", () => showScreen("landing"));
+
+        // Lógica para criar sala
+        document.getElementById("confirm-create-btn").addEventListener("click", async () => {
+            if (!loggedInUser) {
+                showToast("Você precisa estar logado para criar uma sala.", "error");
+                return showScreen("login");
+            }
+            const roomName = document.getElementById("room-name").value.trim();
+            if (!roomName) {
+                return showToast("O nome da sala é obrigatório.", "error");
+            }
+            const password = document.getElementById("room-password").value;
+            const maxPlayers = parseInt(document.getElementById("max-players").value);
+            const deck = document.getElementById("deck-select").value;
+
+            const newRoomRef = database.ref("rooms").push();
+            const roomId = newRoomRef.key;
+
+            const roomData = {
+                name: roomName,
+                hasPassword: !!password,
+                passwordHash: password ? simpleHash(password) : null,
+                maxPlayers: maxPlayers,
+                deck: deck,
+                createdAt: Date.now(),
+                started: false,
+                creator: loggedInUser
+            };
+
+            try {
+                await newRoomRef.set(roomData);
+                // Redireciona para jogo.html, que vai lidar com a entrada na sala
+                window.location.href = `jogo.html?room=${roomId}&password=${password}`;
+            } catch (error) {
+                showToast(`Erro ao criar sala: ${error.message}`, "error");
+            }
+        });
+        document.getElementById("cancel-create-btn").addEventListener("click", () => showScreen("landing"));
+
+        // Lógica para lidar com o parâmetro 'action' na URL (ex: index.html?action=createRoom)
+        const urlParams = new URLSearchParams(window.location.search);
+        const action = urlParams.get("action");
+        if (action && screens[action]) {
+            if (loggedInUser || action === "login" || action === "register") {
+                showScreen(action);
+            } else {
+                showToast("Faça login para acessar esta funcionalidade.", "error");
+                showScreen("login");
+            }
+        }
+
+        // Lógica para lidar com o parâmetro 'room' na URL (redireciona para salas.html para tratamento)
+        const roomIdFromUrl = urlParams.get("room");
+        if (roomIdFromUrl) {
+            window.location.href = `salas.html?room=${roomIdFromUrl}`;
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,709 @@
+/* Reset e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --color-bg: #0b0d10;
+    --color-surface: #111418;
+    --color-surface-2: #151a20;
+    --color-primary: #7c5cff;
+    --color-primary-600: #6a48ff;
+    --color-primary-700: #5a3df0;
+    --color-success: #22c55e;
+    --color-danger: #ef4444;
+    --color-text: #e6e9ee;
+    --color-muted: #9aa4b2;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--color-bg);
+    min-height: 100vh;
+    color: var(--color-text);
+}
+
+/* Telas */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 640px;
+    text-align: center;
+}
+
+/* Títulos */
+h1 {
+    color: var(--color-text);
+    font-size: 2.4rem;
+    margin-bottom: 24px;
+    letter-spacing: .3px;
+}
+
+h2 {
+    color: var(--color-text);
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+}
+
+h3 {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+/* Cards */
+.card {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: none;
+    border: 1px solid #1f242b;
+}
+
+.card--glass { background: var(--color-surface); border: 1px solid #1f242b; }
+
+/* Formulários */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-muted);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #242a32;
+    background: #0f1318;
+    color: var(--color-text);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.12);
+}
+
+/* Botões */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn:hover { transform: none; box-shadow: none; opacity: 0.98; }
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-700) 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+}
+
+.btn-secondary {
+    background: #182028;
+    color: var(--color-text);
+    border: 1px solid #242a32;
+}
+
+.btn-secondary:hover {
+    background: #1b242d;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.btn-danger {
+    background: var(--color-danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #d03030;
+}
+
+.btn-bingo {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    font-size: 1.1rem;
+    background: #1f2630;
+    color: var(--color-text);
+    border: 1px solid #242a32;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Tela de Jogo */
+#game-screen.active {
+    display: block;
+}
+
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Cabeçalho do Jogo */
+.game-header {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: none;
+    flex-wrap: wrap;
+    gap: 12px;
+    border: 1px solid #1f242b;
+}
+
+.header-info h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.header-info p {
+    margin: 5px 0 0 0;
+    color: var(--color-muted);
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Área Principal do Jogo */
+.game-main {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 20px;
+}
+
+/* Área da Cartela */
+.card-area {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: none;
+    border: 1px solid #1f242b;
+}
+
+/* Cartela de Bingo */
+.bingo-card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.bingo-square {
+    aspect-ratio: 1;
+    background: #0f1318;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.3s;
+    user-select: none;
+    border: 1px solid #242a32;
+}
+
+.bingo-square:hover { transform: none; box-shadow: none; }
+
+.bingo-square.marked {
+    background: linear-gradient(145deg, rgba(34,197,94,0.25), rgba(34,197,94,0.15));
+    border-color: rgba(34,197,94,0.45);
+    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.players-panel,
+.events-panel {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: none;
+    border: 1px solid #1f242b;
+}
+
+.players-panel {
+    flex: 0 0 auto;
+}
+
+.events-panel {
+    flex: 1;
+    min-height: 300px;
+}
+
+/* Lista de Jogadores */
+#players-list {
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#players-list li {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #0f1318;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #242a32;
+}
+
+#players-list li.winner { background: #0f1612; border-color: rgba(34,197,94,0.45); }
+
+#players-list li::before { content: ''; }
+
+/* Log de Eventos */
+#events-log {
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+}
+
+.event-item {
+    padding: 8px;
+    margin-bottom: 8px;
+    background: #0f1318;
+    border-radius: 6px;
+    border-left: 4px solid var(--color-primary);
+    border: 1px solid #242a32;
+}
+
+.event-item.bingo-event {
+    background: #1f1a13;
+    border-left-color: #ffb86b;
+    font-weight: bold;
+}
+
+.event-timestamp {
+    color: #999;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--color-surface);
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid #1f242b;
+}
+
+.modal-content p {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--color-text);
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(20,20,20,0.9);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background: #27ae60;
+}
+
+.toast.error {
+    background: #e74c3c;
+}
+
+/* Header e Footer do site */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.site-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+}
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+}
+.brand__logo { font-size: 1.2rem; }
+.brand__name { font-weight: 700; letter-spacing: 0.3px; }
+.site-nav { display: flex; gap: 12px; }
+.site-nav__link {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+.site-nav__link:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+.site-footer { padding: 30px 20px; text-align: center; color: rgba(255,255,255,0.85); }
+.site-footer__inner { max-width: 1200px; margin: 0 auto; }
+.muted { color: var(--color-muted); display: inline-block; margin-top: 14px; }
+.lead { color: var(--color-muted); margin-bottom: 16px; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .game-main {
+        grid-template-columns: 1fr;
+    }
+
+    .game-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bingo-square {
+        font-size: 0.85rem;
+        padding: 10px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .toast {
+        right: 20px;
+        left: 20px;
+        bottom: 20px;
+    }
+}
+
+/* Scrollbar Customizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5568d3;
+}
+
+
+
+/* Estilos para Telas de Login/Registro */
+.screen h1 {
+    margin-bottom: 20px;
+    color: var(--color-text);
+}
+
+.screen .card {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.screen .card p.mt-3 a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.screen .card p.mt-3 a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para input desabilitado */
+input[disabled] {
+    background-color: #1a1e24;
+    cursor: not-allowed;
+    color: var(--color-muted);
+    border-color: #242a32;
+}
+
+/* Ajustes para o cabeçalho de navegação */
+#nav-logout-btn {
+    display: none; /* Esconder por padrão, JS irá mostrar quando logado */
+}
+
+
+
+/* Estilos para o Chat */
+.chat-panel {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: none;
+    border: 1px solid #1f242b;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 300px;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 10px; /* Espaço para a scrollbar */
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #0f1318;
+    border: 1px solid #242a32;
+}
+
+.chat-message.system-message {
+    background: #1f1a13;
+    border-left: 4px solid var(--color-primary);
+    color: var(--color-muted);
+    font-style: italic;
+}
+
+.chat-sender {
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-right: 8px;
+}
+
+.chat-timestamp {
+    font-size: 0.8em;
+    color: var(--color-muted);
+}
+
+.chat-text {
+    margin-top: 5px;
+    word-wrap: break-word;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #242a32;
+    background: #0f1318;
+    color: var(--color-text);
+    border-radius: 8px;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+/* Estilos para a tela de Salas */
+.room-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--color-surface-2);
+    border-radius: 10px;
+    border: 1px solid #1f242b;
+}
+
+.room-filters .form-group {
+    margin-bottom: 0;
+}
+
+.room-filters label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+}
+
+.room-filters input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+.room-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.room-item {
+    text-align: left;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--color-surface);
+    border: 1px solid #1f242b;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.room-item h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--color-primary);
+}
+
+.room-item p {
+    margin-bottom: 8px;
+    color: var(--color-muted);
+}
+
+.room-item .btn {
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* Estilos para o Modal de Senha */
+#password-modal .modal-content {
+    padding: 30px;
+}
+
+#password-modal h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+#password-modal p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+#password-modal .form-group {
+    margin-bottom: 25px;
+}
+
+#password-modal .button-group {
+    margin-top: 20px;
+}
+
+/* Responsividade para telas de salas */
+@media (max-width: 768px) {
+    .room-filters {
+        grid-template-columns: 1fr;
+    }
+}
+
